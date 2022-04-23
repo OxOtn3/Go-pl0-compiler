@@ -2,6 +2,7 @@ package lexer
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 	"testing"
 )
@@ -35,4 +36,26 @@ func showLexResult(t *testing.T) {
 
 func TestExp2(t *testing.T) {
 	showLexResult(t)
+}
+
+func TestCreateFile(t *testing.T) {
+	opath := "../output"
+	_, e := os.Stat(opath)
+	if e != nil && os.IsNotExist(e) {
+		// 不存在output目录，创建
+		err := os.Mkdir("../output", os.ModePerm)
+		if err != nil {
+			panic(err)
+		}
+	}
+	path := opath + "/tmp.txt"
+	f, err := os.Create(path)
+	defer f.Close()
+	if err != nil {
+		panic(err)
+	}
+	_, err = f.Write([]byte("this is content ..\nhuanhang"))
+	if err != nil {
+		panic(err)
+	}
 }
