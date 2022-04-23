@@ -26,7 +26,6 @@ func NewFile(path string) *File {
 func (f *File) Read() (r rune, isEnd bool) {
 	if f.scanner.Scan() {
 		r = []rune(f.scanner.Text())[0] // 转换成rune
-		isEnd = false
 	} else {
 		isEnd = true // 文件结束
 	}
